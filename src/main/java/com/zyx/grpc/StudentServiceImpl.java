@@ -3,6 +3,8 @@ package com.zyx.grpc;
 import com.zyx.proto.*;
 import io.grpc.stub.StreamObserver;
 
+import java.util.UUID;
+
 public class StudentServiceImpl extends StudentServiceGrpc.StudentServiceImplBase {
 
     @Override
@@ -32,5 +34,62 @@ public class StudentServiceImpl extends StudentServiceGrpc.StudentServiceImplBas
 
         responseObserver.onCompleted();
 
+    }
+
+
+    @Override
+    public StreamObserver<StudentRequest> getStudentsWrapperByAges(StreamObserver<StudentResponseList> responseObserver) {
+
+        //这个方法getStudentsWrapperByAges是通过回调实现的，下面这个return返回的方法全都是客户端的请求数据
+        return new StreamObserver<StudentRequest>() {
+            @Override
+            public void onNext(StudentRequest value) {
+                System.out.println("value: "+value.getAge());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+
+            //onCompleted表示当客户端全部把数据流发送完毕之后，服务端要把结果返回给客户端
+            @Override
+            public void onCompleted() {
+
+                StudentResponse studentResponse = StudentResponse.newBuilder().setName("zhangsan").setAge(20).setCity("beijing").build();
+                StudentResponse studentResponse2 = StudentResponse.newBuilder().setName("李四").setAge(20).setCity("上海").build();
+
+                StudentResponseList studentResponseList = StudentResponseList.newBuilder().addStudentResponse(studentResponse).
+                        addStudentResponse(studentResponse2).build();
+
+                //服务器端要把最终的结果返回给客户端
+                responseObserver.onNext(studentResponseList);
+                responseObserver.onCompleted();
+            }
+        };
+    }
+
+
+    @Override
+    public StreamObserver<StreamRequest> biTalk(StreamObserver<StreamResponse> responseObserver) {
+        return new StreamObserver<StreamRequest>() {
+            @Override
+            public void onNext(StreamRequest value) {
+                System.out.println(value.getRequestInfo());
+                //因为是双向的数据传递，所以向客户端返回数据（即传过来一个我返回一个）
+                responseObserver.onNext(StreamResponse.newBuilder().setResponseInfo(UUID.randomUUID().toString()).build());
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.out.println(t.getMessage());
+            }
+
+            @Override
+            public void onCompleted() {
+                //客户端传输完毕数据后把流关闭了，那服务端也把流关闭
+                responseObserver.onCompleted();
+            }
+        };
     }
 }

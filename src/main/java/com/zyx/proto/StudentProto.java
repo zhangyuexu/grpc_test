@@ -34,6 +34,21 @@ public final class StudentProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_zyx_proto_StudentResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_zyx_proto_StudentResponseList_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_zyx_proto_StudentResponseList_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_zyx_proto_StreamRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_zyx_proto_StreamRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_zyx_proto_StreamResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_zyx_proto_StreamResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -47,13 +62,21 @@ public final class StudentProto {
       "est\022\020\n\010username\030\001 \001(\t\"\036\n\nMyResponse\022\020\n\010r" +
       "ealname\030\002 \001(\t\"\035\n\016StudentRequest\022\013\n\003age\030\001" +
       " \001(\005\":\n\017StudentResponse\022\014\n\004name\030\001 \001(\t\022\013\n" +
-      "\003age\030\002 \001(\005\022\014\n\004city\030\003 \001(\t2\267\001\n\016StudentServ" +
+      "\003age\030\002 \001(\005\022\014\n\004city\030\003 \001(\t\"N\n\023StudentRespo" +
+      "nseList\0227\n\017studentResponse\030\001 \003(\0132\036.com.z" +
+      "yx.proto.StudentResponse\"%\n\rStreamReques" +
+      "t\022\024\n\014request_info\030\001 \001(\t\"\'\n\016StreamRespons" +
+      "e\022\025\n\rresponse_info\030\001 \001(\t2\347\002\n\016StudentServ" +
       "ice\022N\n\025getRealNameByUsername\022\030.com.zyx.p" +
       "roto.MyRequest\032\031.com.zyx.proto.MyRespons" +
       "e\"\000\022U\n\020getStudentsByAge\022\035.com.zyx.proto." +
       "StudentRequest\032\036.com.zyx.proto.StudentRe" +
-      "sponse\"\0000\001B!\n\rcom.zyx.protoB\014StudentProt" +
-      "oH\001P\001b\006proto3"
+      "sponse\"\0000\001\022a\n\030getStudentsWrapperByAges\022\035" +
+      ".com.zyx.proto.StudentRequest\032\".com.zyx." +
+      "proto.StudentResponseList\"\000(\001\022K\n\006BiTalk\022" +
+      "\034.com.zyx.proto.StreamRequest\032\035.com.zyx." +
+      "proto.StreamResponse\"\000(\0010\001B!\n\rcom.zyx.pr" +
+      "otoB\014StudentProtoH\001P\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -91,6 +114,24 @@ public final class StudentProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_zyx_proto_StudentResponse_descriptor,
         new String[] { "Name", "Age", "City", });
+    internal_static_com_zyx_proto_StudentResponseList_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_com_zyx_proto_StudentResponseList_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_zyx_proto_StudentResponseList_descriptor,
+        new String[] { "StudentResponse", });
+    internal_static_com_zyx_proto_StreamRequest_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_com_zyx_proto_StreamRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_zyx_proto_StreamRequest_descriptor,
+        new String[] { "RequestInfo", });
+    internal_static_com_zyx_proto_StreamResponse_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_com_zyx_proto_StreamResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_zyx_proto_StreamResponse_descriptor,
+        new String[] { "ResponseInfo", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

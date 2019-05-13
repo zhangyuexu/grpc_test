@@ -17,6 +17,12 @@ service StudentService{
     rpc getStudentsByAge(StudentRequest) returns(stream StudentResponse) {}
     //根据年龄来得到学生，grpc规范定义，它要求请求和响应必须是message类型，即使请求的参数只有一个字段，也必须定义成message类型的。这里与thrift有明显的差别，设计理念上不同。
     //rpc getStudentsByAge(int32) returns(stream StudentResponse) {}
+
+    //客户端向服务端发送流式的请求，服务端会返回一个(单个)由StudentResponse构成的集合，把这个集合封装成一个StudentResponseList对象(消息)当中
+    rpc getStudentsWrapperByAges(stream StudentRequest) returns(StudentResponseList) {}
+
+    //客户端与服务器端都是以流式的方式把数据发送给对方(双向的)
+    rpc BiTalk(stream StreamRequest) returns(stream StreamResponse) {}
 }
 
 message MyRequest{
@@ -34,6 +40,15 @@ message StudentResponse{
     string name = 1;
     int32 age = 2;
     string city = 3;
+}
+message StudentResponseList{
+    repeated StudentResponse studentResponse = 1;
+}
+message StreamRequest{
+    string request_info = 1;
+}
+message StreamResponse{
+    string response_info = 1;
 }
 
 //编译就不要使用protoc来编译了，因为protoc编译只会把message编译出来，service不会编译出来；这里需要使用的是generatedProto来编译。
