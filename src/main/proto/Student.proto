@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package com.zyx.proto;
+
+option optimize_for = SPEED;
+option java_package = "com.zyx.proto";
+option java_outer_classname = "StudentProto";
+//是否生成多个文件
+option java_multiple_files = true;
+
+
+service studentService{
+    rpc getRealNameByUsername(MyRequest) returns (MyResponse) {}
+}
+
+message MyRequest{
+    string username = 1 ;
+}
+
+message MyResponse{
+    string realname = 2;
+}
+
+
+//编译就不要使用protoc来编译了，因为protoc编译只会把message编译出来，service不会编译出来；这里需要使用的是generatedProto来编译。
