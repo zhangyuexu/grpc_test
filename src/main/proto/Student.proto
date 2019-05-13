@@ -9,8 +9,14 @@ option java_outer_classname = "StudentProto";
 option java_multiple_files = true;
 
 
-service studentService{
+service StudentService{
+
     rpc getRealNameByUsername(MyRequest) returns (MyResponse) {}
+
+    //客户端向服务端发送单个的数据请求，服务器返回流式的数据响应.理解流式的数据是什么，其实是一个集合或者一个迭代器，即服务端向客户端返回数据时先返回一个对象，紧接着再返回一个对象，像迭代一样
+    rpc getStudentsByAge(StudentRequest) returns(stream StudentResponse) {}
+    //根据年龄来得到学生，grpc规范定义，它要求请求和响应必须是message类型，即使请求的参数只有一个字段，也必须定义成message类型的。这里与thrift有明显的差别，设计理念上不同。
+    //rpc getStudentsByAge(int32) returns(stream StudentResponse) {}
 }
 
 message MyRequest{
@@ -21,5 +27,13 @@ message MyResponse{
     string realname = 2;
 }
 
+message StudentRequest{
+    int32 age = 1;
+}
+message StudentResponse{
+    string name = 1;
+    int32 age = 2;
+    string city = 3;
+}
 
 //编译就不要使用protoc来编译了，因为protoc编译只会把message编译出来，service不会编译出来；这里需要使用的是generatedProto来编译。
