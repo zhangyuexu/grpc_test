@@ -10,7 +10,7 @@ option java_multiple_files = true;
 
 
 service StudentService{
-
+    //客户端和服务端都是单个数据
     rpc getRealNameByUsername(MyRequest) returns (MyResponse) {}
 
     //客户端向服务端发送单个的数据请求，服务器返回流式的数据响应.理解流式的数据是什么，其实是一个集合或者一个迭代器，即服务端向客户端返回数据时先返回一个对象，紧接着再返回一个对象，像迭代一样
